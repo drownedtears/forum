@@ -11,10 +11,11 @@
 	<groupId>ru.doketov</groupId>
 	<artifactId>forum</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>forum</name>
 	<description>Forum with Spring boot and bootstrap</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

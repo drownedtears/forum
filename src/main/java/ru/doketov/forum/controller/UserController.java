@@ -24,7 +24,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
-@ResponseBody
 public class UserController {
     private final UserService userService;
     private final ArticleService articleService;
