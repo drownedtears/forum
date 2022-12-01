@@ -1,0 +1,27 @@
+.header-menu {
+    background-color: #bbbaba !important;
+}
+.header-menu svg {
+    scale: 2.5;
+    margin-bottom: 20px;
+    margin-right: 5px;
+}
+.header-menu span {
+    font-weight: normal;
+}
+h3 .btn {
+    margin-left: 10px;
+}
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+.buttons_block {
+    margin-top: 20px;
+}
+.buttons_block .btn {
+    margin-right: 20px;
+}
+figure {
+    margin-top: 20px;
+}

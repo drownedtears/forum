@@ -1,0 +1,41 @@
+.header-menu {
+    background-color: #bbbaba !important;
+}
+.header-menu svg {
+    scale: 2.5;
+    margin-bottom: 20px;
+    margin-right: 5px;
+}
+.header-menu span {
+    font-weight: normal;
+}
+h3 .btn {
+    margin-left: 10px;
+}
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+.table {
+    margin-top: 20px;
+}
+#button_delete {
+    width: 75px;
+}
+#button_delete .btn {
+    width: 100%;
+}
+.actions {
+    display: flex;
+    justify-content: center;
+    height: 38px;
+}
+.input-group {
+    width: 30% !important;
+    margin-left: 20px;
+}
+.input-group-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

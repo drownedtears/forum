@@ -1,0 +1,32 @@
+.header-menu {
+    background-color: #bbbaba !important;
+}
+.header-menu svg {
+    scale: 2.5;
+    margin-bottom: 20px;
+    margin-right: 5px;
+}
+.header-menu span {
+    font-weight: normal;
+}
+h1 {
+    margin-top: 20px;
+    text-align: center;
+}
+.userForm {
+    max-width: 430px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+.userForm .btn {
+    margin-left: 20px;
+}
+.form-actions {
+    display: flex;
+    justify-content: center;
+}
+.error {
+    color: #b04848;
+    font-weight: bold;
+}
