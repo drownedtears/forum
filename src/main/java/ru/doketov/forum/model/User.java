@@ -44,7 +44,7 @@ public class User implements UserDetails {
     private String passwordConfirm;
 
     @Fetch(FetchMode.JOIN)
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

@@ -7,12 +7,13 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.doketov.forum.model.Article;
 import ru.doketov.forum.model.User;
-import ru.doketov.forum.service.ArticleService;
+import ru.doketov.forum.service.ArticleServiceImpl;
 import ru.doketov.forum.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,24 +25,25 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
-    private final UserService userService;
-    private final ArticleService articleService;
 
+    private final UserService userService;
+    private final ArticleServiceImpl articleService;
 
     @Autowired
-    public UserController(UserService userService, ArticleService articleService) {
+    public UserController(UserService userService, ArticleServiceImpl articleService) {
         this.userService = userService;
         this.articleService = articleService;
     }
 
-    @GetMapping("/user")
+    @GetMapping()
     public String mainPage(Principal principal, Model model) {
         model.addAttribute("curUser", userService.getUserByUsername(principal.getName()));
         return "user-main";
     }
 
-    @GetMapping("/user/main")
+    @GetMapping("/main")
     public String getForumPage(Model model, Principal principal) {
 
         setModelPage(model, principal);
@@ -52,7 +54,7 @@ public class UserController {
         return "main-forum-user";
     }
 
-    @PostMapping("/user/main")
+    @PostMapping("/main")
     public String addRating(@ModelAttribute Article article, Model model,
                             Principal principal) {
 
@@ -60,7 +62,7 @@ public class UserController {
 
         Article articleFromDb = articleService.getArticleById(article.getId());
         articleFromDb.setRating(article.getRating());
-        articleService.save(articleFromDb);
+        articleService.saveArticle(articleFromDb);
 
         List<Article> list = articleService.getAllArticles();
         model.addAttribute("allArticles", list);
@@ -69,7 +71,7 @@ public class UserController {
         return "main-forum-user";
     }
 
-    @GetMapping("/user/add")
+    @GetMapping("/add")
     public String addArticlePage(Model model, Principal principal) {
         Article article = new Article();
         model.addAttribute("newArticle", article);
@@ -77,7 +79,7 @@ public class UserController {
         return "add-article";
     }
 
-    @PostMapping("/user/add")
+    @PostMapping("/add")
     public String addArticleConfirm(@ModelAttribute Article article,
                                     Principal principal, Model model) {
         setModelPage(model, principal);
@@ -90,22 +92,13 @@ public class UserController {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(timePattern);
         article.setCre_date(curTime.format(dateTimeFormatter));
 
-        articleService.save(article);
+        articleService.saveArticle(article);
 
         List<Article> list = articleService.getAllArticles();
         model.addAttribute("allArticles", list);
         model.addAttribute("curUser", curUser);
 
         return "main-forum-user";
-    }
-
-    @GetMapping("/logout")
-    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/login?logout";
     }
 
     private void setModelPage(Model model, Principal principal) {

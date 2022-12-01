@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.doketov.forum.model.Article;
 import ru.doketov.forum.model.FindArticle;
 import ru.doketov.forum.model.FindUser;
 import ru.doketov.forum.model.User;
-import ru.doketov.forum.service.ArticleService;
+import ru.doketov.forum.service.ArticleServiceImpl;
 import ru.doketov.forum.service.UserService;
 
 import java.security.Principal;
@@ -20,25 +21,26 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     private final UserService userService;
 
-    private final ArticleService articleService;
+    private final ArticleServiceImpl articleService;
 
     @Autowired
-    public AdminController(UserService userService, ArticleService articleService) {
+    public AdminController(UserService userService, ArticleServiceImpl articleService) {
         this.userService = userService;
         this.articleService = articleService;
     }
 
-    @GetMapping("/admin")
+    @GetMapping()
     public String mainPage(Principal principal, Model model) {
         model.addAttribute("curUser", userService.getUserByUsername(principal.getName()));
         return "admin-main";
     }
 
-    @GetMapping("/admin/users")
+    @GetMapping("/users")
     public String userList(Model model, Principal principal) {
         model.addAttribute("allUsers", userService.getAllUsers());
         model.addAttribute("findUser", userService.getFindUser());
@@ -46,7 +48,7 @@ public class AdminController {
         return "all-users-admin";
     }
 
-    @PostMapping("/admin/users")
+    @PostMapping("/users")
     public String deleteUser(@ModelAttribute User user,
                               Model model, Principal principal) {
         model.addAttribute("userForDeletion", user);
@@ -55,13 +57,13 @@ public class AdminController {
         return "delete-user-confirm";
     }
 
-    @PostMapping("/admin/users/delete")
+    @PostMapping("/users/delete")
     public String deleteUserConfirm(@ModelAttribute User user) {
         userService.banOrUnbanUser(user);
         return "redirect:/admin/users";
     }
 
-    @PostMapping("admin/users/find")
+    @PostMapping("/users/find")
     public String getUserByUsername(@ModelAttribute FindUser findUser,
                                      Model model, Principal principal) {
         User user = userService.getUserByUsername(findUser.getUsername());
@@ -76,7 +78,7 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/admin/users/{userId}")
+    @GetMapping("/users/{userId}")
     public String  getUser(@PathVariable("userId") Long userId,
                            Model model, Principal principal) {
         User user = userService.getUserById(userId);
@@ -91,7 +93,7 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/admin/articles")
+    @GetMapping("/articles")
     public String articleList(Model model, Principal principal) {
         model.addAttribute("allArticles", articleService.getAllArticles());
         model.addAttribute("findArticle", articleService.getFindArticle());
@@ -99,7 +101,7 @@ public class AdminController {
         return "all-articles-admin";
     }
 
-    @PostMapping("/admin/articles")
+    @PostMapping("/articles")
     public String deleteArticle(@ModelAttribute Article article,
                                 Model model, Principal principal) {
         model.addAttribute("articleForDeletion", article);
@@ -108,14 +110,14 @@ public class AdminController {
         return "delete-article-confirm";
     }
 
-    @PostMapping("admin/articles/delete")
+    @PostMapping("/articles/delete")
     public String deleteArticleConfirm(@ModelAttribute Article article) {
         articleService.deleteArticle(article);
 
         return "redirect:/admin/articles";
     }
 
-    @PostMapping("admin/articles/find")
+    @PostMapping("/articles/find")
     public String getArticleByHeader(@ModelAttribute FindArticle findArticle,
                                      Model model, Principal principal) {
         List<Article> list = articleService.getArticlesByHeader(findArticle.getHeader());
@@ -130,7 +132,7 @@ public class AdminController {
         }
     }
 
-    @GetMapping("admin/articles/{articleId}")
+    @GetMapping("/articles/{articleId}")
     public String getArticleById(@PathVariable("articleId") Long id,
                                  Model model, Principal principal) {
         Article article = articleService.getArticleById(id);

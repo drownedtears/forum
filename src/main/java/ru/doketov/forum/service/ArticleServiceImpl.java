@@ -9,13 +9,13 @@ import ru.doketov.forum.model.FindArticle;
 import java.util.List;
 
 @Service
-public class ArticleService {
+public class ArticleServiceImpl implements ArticleService {
 
     private final FindArticle findArticle;
     private final ArticleRepository articleRepository;
 
     @Autowired
-    public ArticleService(ArticleRepository articleRepository, FindArticle findArticle) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, FindArticle findArticle) {
         this.findArticle = findArticle;
         this.articleRepository = articleRepository;
     }
@@ -38,7 +38,7 @@ public class ArticleService {
         return findArticle;
     }
 
-    public void save(Article article) {
+    public void saveArticle(Article article) {
         articleRepository.save(article);
     }
 }

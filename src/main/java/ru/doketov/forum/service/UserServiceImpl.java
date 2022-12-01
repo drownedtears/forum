@@ -19,15 +19,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final FindUser findUser;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder,
-                       UserRepository userRepository, FindUser findUser) {
+    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder,
+                           UserRepository userRepository, FindUser findUser) {
         this.findUser = findUser;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userRepository = userRepository;
@@ -44,37 +44,44 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public String saveUser(User user) {
+    @Override
+    public User saveUser(User user) throws Exception {
         User userFromDB = userRepository.findByUsername(user.getUsername());
 
         if (userFromDB != null) {
-            return "exists";
+            throw new Exception("Username already exists");
+        }
+
+        if (user.getUsername().length() < 3) {
+            throw new Exception("Must be longer than 2 symbols");
         }
 
         String timePattern = "dd:MM:YYYY";
         ZonedDateTime curTime = ZonedDateTime.now(ZoneId.of( "Europe/Moscow"));
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(timePattern);
-        if (user.getUsername().length() < 3) {
-            return "small";
-        }
+
         user.setBanned(false);
         user.setRegDate(curTime.format(dateTimeFormatter));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         userRepository.save(user);
-        return "ok";
+
+        return user;
     }
 
+    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll().stream().filter(user ->
                 user.getRoles().size() < 2)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public User getUserById(Long id) {
         return userRepository.getUserById(id);
     }
 
+    @Override
     public void banOrUnbanUser(User user) {
         User userFromDb = userRepository.getUserById(user.getId());
         userFromDb.setBanned(!userFromDb.getBanned());
@@ -82,8 +89,10 @@ public class UserService implements UserDetailsService {
         userRepository.save(userFromDb);
     }
 
+    @Override
     public User getUserByUsername(String username) { return userRepository.getUserByUsername(username); }
 
+    @Override
     public FindUser getFindUser() {
         return findUser;
     }
