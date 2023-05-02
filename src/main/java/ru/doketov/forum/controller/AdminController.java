@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.doketov.forum.model.Article;
-import ru.doketov.forum.model.FindArticle;
-import ru.doketov.forum.model.FindUser;
-import ru.doketov.forum.model.User;
-import ru.doketov.forum.service.ArticleServiceImpl;
-import ru.doketov.forum.service.UserService;
+import ru.doketov.forum.model.entity.Article;
+import ru.doketov.forum.model.dto.FindArticle;
+import ru.doketov.forum.model.dto.FindUser;
+import ru.doketov.forum.model.entity.User;
+import ru.doketov.forum.service.article.ArticleServiceImpl;
+import ru.doketov.forum.service.user.UserService;
 
 import java.security.Principal;
 import java.util.ArrayList;

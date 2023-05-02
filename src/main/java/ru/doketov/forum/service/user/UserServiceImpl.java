@@ -1,4 +1,4 @@
-package ru.doketov.forum.service;
+package ru.doketov.forum.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,9 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.doketov.forum.dao.UserRepository;
-import ru.doketov.forum.model.FindUser;
-import ru.doketov.forum.model.Role;
-import ru.doketov.forum.model.User;
+import ru.doketov.forum.model.dto.FindUser;
+import ru.doketov.forum.model.entity.Role;
+import ru.doketov.forum.model.entity.User;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;

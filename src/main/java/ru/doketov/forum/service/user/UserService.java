@@ -1,7 +1,7 @@
-package ru.doketov.forum.service;
+package ru.doketov.forum.service.user;
 
-import ru.doketov.forum.model.FindUser;
-import ru.doketov.forum.model.User;
+import ru.doketov.forum.model.dto.FindUser;
+import ru.doketov.forum.model.entity.User;
 
 import java.util.List;
 

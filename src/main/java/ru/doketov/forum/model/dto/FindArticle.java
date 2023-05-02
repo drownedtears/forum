@@ -1,4 +1,4 @@
-package ru.doketov.forum.model;
+package ru.doketov.forum.model.dto;
 
 public class FindArticle {
 

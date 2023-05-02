@@ -1,4 +1,4 @@
-package ru.doketov.forum.model;
+package ru.doketov.forum.model.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 

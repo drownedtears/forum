@@ -1,4 +1,4 @@
-package ru.doketov.forum.model;
+package ru.doketov.forum.model.entity;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;

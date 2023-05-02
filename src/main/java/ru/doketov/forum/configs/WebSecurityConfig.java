@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import ru.doketov.forum.model.FindArticle;
-import ru.doketov.forum.model.FindUser;
+import ru.doketov.forum.model.dto.FindArticle;
+import ru.doketov.forum.model.dto.FindUser;
 
 @Configuration
 @EnableWebSecurity

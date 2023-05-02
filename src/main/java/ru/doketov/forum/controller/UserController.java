@@ -1,23 +1,17 @@
 package ru.doketov.forum.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.doketov.forum.model.Article;
-import ru.doketov.forum.model.User;
-import ru.doketov.forum.service.ArticleServiceImpl;
-import ru.doketov.forum.service.UserService;
+import ru.doketov.forum.model.entity.Article;
+import ru.doketov.forum.model.entity.User;
+import ru.doketov.forum.service.article.ArticleServiceImpl;
+import ru.doketov.forum.service.user.UserService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;

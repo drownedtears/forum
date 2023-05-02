@@ -1,10 +1,10 @@
-package ru.doketov.forum.service;
+package ru.doketov.forum.service.article;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.doketov.forum.dao.ArticleRepository;
-import ru.doketov.forum.model.Article;
-import ru.doketov.forum.model.FindArticle;
+import ru.doketov.forum.model.entity.Article;
+import ru.doketov.forum.model.dto.FindArticle;
 
 import java.util.List;
 

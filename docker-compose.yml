@@ -1,0 +1,51 @@
+services:
+  postgresql:
+    container_name: postgresql
+    image : postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+      POSTGRES_DB: forum
+    ports:
+      - 5433:5432
+    networks:
+      backend:
+      test-network:
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    restart: unless-stopped
+  pgadmin:
+    image : dpage/pgadmin4:6
+    ports :
+      - 8080:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: doketov@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: password
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    restart: unless-stopped
+    networks:
+      test-network:
+  liquibase-migrations:
+    image: liquibase/liquibase:4.18
+    depends_on:
+      - postgresql
+    command:
+      - --hub-mode=off
+      - --changelog-file=master.xml
+      - --driver=org.postgresql.Driver
+      - --url=jdbc:postgresql://postgresql:5432/forum
+      - --username=user
+      - --password=pass
+      - update
+    volumes:
+      - ./src/main/resources/migrations:/liquibase/changelog
+    networks:
+      backend:
+networks:
+  test-network:
+  backend:
+volumes:
+  postgres:
+  pgadmin_data:

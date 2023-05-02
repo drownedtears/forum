@@ -1,7 +1,7 @@
 package ru.doketov.forum.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.doketov.forum.model.Article;
+import ru.doketov.forum.model.entity.Article;
 
 import java.util.List;
 
