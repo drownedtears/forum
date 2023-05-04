@@ -4,7 +4,7 @@
 CREATE TABLE users (
                        id SERIAL PRIMARY KEY,
                        username VARCHAR(20) NOT NULL,
-                       password VARCHAR(20) NOT NULL,
+                       password VARCHAR(255) NOT NULL,
                        reg_date VARCHAR(20) NOT NULL,
                        banned BOOLEAN NOT NULL
 );

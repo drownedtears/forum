@@ -42,7 +42,7 @@ services:
       - --password=pass
       - update
     volumes:
-      - /src/main/resources/migrations:/liquibase/changelog
+      - ./src/main/resources/migrations:/liquibase/changelog
     networks:
       backend:
 networks:
